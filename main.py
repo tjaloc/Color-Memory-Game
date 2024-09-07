@@ -166,28 +166,25 @@ if __name__ == "__main__":
             scoreboard.show_message(f"Time is up.\n\nYou're final score is {scoreboard.score}.")
             sleep(2)
             game_is_on = False
+        else:
+            if is_level_completed():
+                clock.stop_clock()
+                points = int(clock.mins * 60 + clock.secs)
+                scoreboard.raise_score(points)
+                game.clearscreen()
+                scoreboard.show_message(f'Level complete')
+                sleep(2)
 
-        if is_level_completed():
-            clock.stop_clock()
-            points = int(clock.mins * 60 + clock.secs)
-            scoreboard.raise_score(points)
-            game.clearscreen()
-            scoreboard.show_message(f'Level complete')
-            sleep(2)
+                if scoreboard.level < MAX_LEVELS:
+                    new_level()
 
-            if scoreboard.level < MAX_LEVELS:
-                new_level()
-
-    # # key interactivity
-    # for key_event, func in key_events.items():
-    #     game.onkey(func, key_event)
     game.clearscreen()
-    scoreboard.show_message('GAME OVER')
+    scoreboard.show_message('GOOD BYE')
     game.mainloop()
 
 
 # ToDo:
 #  show highscore
-#  wrong time
 #  quit game button
 #  cards in center
+#  allow to start a new game
